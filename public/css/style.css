@@ -1,0 +1,306 @@
+/* Global Styles */
+:root {
+    --primary-color: #2c5282;
+    --secondary-color: #4299e1;
+    --accent-color: #48bb78;
+    --background-color: #f7fafc;
+    --text-color: #2d3748;
+    --error-color: #e53e3e;
+    --success-color: #48bb78;
+    --border-color: #e2e8f0;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+  }
+  
+  /* Header Styles */
+  header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px var(--shadow-color);
+  }
+  
+  header h1 {
+    margin: 0;
+    font-size: 2rem;
+  }
+  
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  
+  nav a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  nav a:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-1px);
+  }
+  
+  nav a.active {
+    background-color: var(--secondary-color);
+  }
+  
+  .nav-btn {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .nav-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  @media (max-width: 768px) {
+    .nav-links {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      background-color: var(--primary-color);
+      padding: 1rem;
+      display: none;
+    }
+  
+    .nav-links.show {
+      display: flex;
+    }
+  
+    .menu-toggle {
+      display: block;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+  }
+  
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  /* Main Content */
+  main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+  
+  /* Form Styles */
+  .user-info-form,
+  .search-form {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px var(--shadow-color);
+    margin-bottom: 2rem;
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  
+  input[type="text"],
+  input[type="email"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  input[type="text"]:focus,
+  input[type="email"]:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+  }
+  
+  button {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #38a169;
+  }
+  
+  /* Charity Results */
+  .charity-results {
+    margin-top: 2rem;
+  }
+  
+  .charity-item {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px var(--shadow-color);
+    margin-bottom: 1.5rem;
+    list-style: none;
+  }
+  
+  .charity-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .charity-item h2,
+  .charity-item h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+  }
+  
+  .description {
+    color: #4a5568;
+    margin-bottom: 1rem;
+  }
+  
+  .charity-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 1rem;
+  }
+  
+  .website-link,
+  a.website-link {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: var(--secondary-color);
+    color: white !important;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .website-link:hover,
+  a.website-link:hover {
+    background-color: #3182ce;
+    color: white !important;
+    text-decoration: none;
+  }
+  
+  .delete-button {
+    background-color: var(--error-color);
+  }
+  
+  .delete-button:hover {
+    background-color: #c53030;
+  }
+  
+  /* Messages and Alerts */
+  .error-message {
+    background-color: #fff5f5;
+    border-left: 4px solid var(--error-color);
+    color: var(--error-color);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+  }
+  
+  .no-results,
+  .no-charities,
+  .no-user {
+    text-align: center;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px var(--shadow-color);
+  }
+  
+  .welcome-message {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+  }
+  
+  .saved-date {
+    font-size: 0.875rem;
+    color: #718096;
+  }
+  
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    background-color: var(--primary-color);
+    color: white;
+    margin-top: 4rem;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    header {
+      padding: 1rem;
+    }
+  
+    main {
+      padding: 1rem;
+    }
+  
+    .charity-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .charity-actions a,
+    .charity-actions button {
+      width: 100%;
+      text-align: center;
+    }
+  
+    .user-info-form,
+    .search-form {
+      padding: 1rem;
+    }
+  }

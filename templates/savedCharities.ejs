@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saved Charities</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <h1>Charity Search</h1>
+      <nav>
+        <div class="nav-links">
+          <a href="/" class="nav-btn">
+            <span>🏠</span> Home
+          </a>
+          <a href="/search" class="nav-btn">
+            <span>🔍</span> Search
+          </a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="user-info">
+      <h1>Saved Charities</h1>
+      <% if (userName && userName.trim() !== '') { %>
+        <p class="welcome-message">Welcome, <%= userName %></p>
+      <% } %>
+    </section>
+
+    <% if (!userEmail || userEmail.trim() === '') { %>
+      <div class="no-user">
+        <p>Please log in to view your saved charities.</p>
+        <a href="/search" class="search-link">Go to Search Page</a>
+      </div>
+    <% } else if (savedCharities.length === 0) { %>
+      <div class="no-charities">
+        <p>You haven't saved any charities yet.</p>
+        <a href="/search" class="search-link">Search for Charities</a>
+      </div>
+    <% } else { %>
+      <section class="charities-list">
+        <ul>
+          <% savedCharities.forEach(charity => { %>
+            <li class="charity-item">
+              <div class="charity-content">
+                <h2><%= charity.name %></h2>
+                <p class="description"><%= charity.description %></p>
+                
+                <div class="charity-actions">
+                  <% if (charity.websiteUrl && charity.websiteUrl !== 'No website provided') { %>
+                    <a href="<%= charity.websiteUrl.startsWith('http') ? charity.websiteUrl : 'https://' + charity.websiteUrl %>" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       class="website-link">
+                      Visit Website
+                    </a>
+                  <% } %>
+
+                  <form action="/goals/deleteCharity" method="POST" class="delete-form">
+                    <input type="hidden" name="charityId" value="<%= charity._id %>">
+                    <input type="hidden" name="userEmail" value="<%= userEmail %>">
+                    <input type="hidden" name="userName" value="<%= userName %>">
+                    <button type="submit" class="delete-button">Remove</button>
+                  </form>
+                </div>
+
+                <div class="charity-meta">
+                  <% if (charity.createdAt) { %>
+                    <p class="saved-date">
+                      Saved on: <%= charity.createdAt.toLocaleDateString() %>
+                    </p>
+                  <% } %>
+                </div>
+              </div>
+            </li>
+          <% }) %>
+        </ul>
+      </section>
+    <% } %>
+  </main>
+
+  <footer>
+    <p>&copy; <%= new Date().getFullYear() %> Charity Search App</p>
+  </footer>
+  <script src="/js/session-handler.js"></script>
+</body>
+</html>

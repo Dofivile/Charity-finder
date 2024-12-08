@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Charity Search</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <h1>Charity Search</h1>
+      <nav>
+        <div class="nav-links">
+          <a href="/" class="nav-btn">
+            <span>🏠</span> Home
+          </a>
+          <a href="/search" class="nav-btn">
+            <span>🔍</span> Search
+          </a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <% if (!userName || !userEmail) { %>
+      <section class="user-info-form">
+        <h2>Enter Your Information</h2>
+        <form action="/search/user-info" method="post">
+          <div class="form-group">
+            <label for="userName">Your Name:</label>
+            <input type="text" id="userName" name="userName" placeholder="Enter your full name" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="userEmail">Your Email:</label>
+            <input type="email" id="userEmail" name="userEmail" placeholder="Enter your email address" required>
+          </div>
+          
+          <button type="submit">Continue</button>
+        </form>
+      </section>
+    <% } else { %>
+      <section class="search-form">
+        <h2>Find Charities</h2>
+        <form action="/search/results" method="get">
+          <input type="hidden" name="userName" value="<%= userName %>">
+          <input type="hidden" name="userEmail" value="<%= userEmail %>">
+          
+          <div class="form-group">
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" placeholder="Enter city or state" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="cause">Cause:</label>
+            <input type="text" id="cause" name="cause" placeholder="Enter charity cause" required>
+          </div>
+          
+          <button type="submit">Search Charities</button>
+        </form>
+      </section>
+
+      <% if (error) { %>
+        <div class="error-message">
+          <p><%= error %></p>
+        </div>
+      <% } %>
+
+      <% if (charities.length > 0) { %>
+        <section class="charity-results">
+          <h2>Search Results</h2>
+          <ul>
+            <% charities.forEach(charity => { %>
+              <li class="charity-item">
+                <h3><%= charity.name %></h3>
+                <p><%= charity.description %></p>
+                <div class="charity-actions">
+                  <form action="/search/save" method="post">
+                    <!-- Charity Details -->
+                    <input type="hidden" name="name" value="<%= charity.name %>">
+                    <input type="hidden" name="description" value="<%= charity.description %>">
+                    <input type="hidden" name="websiteUrl" value="<%= charity.websiteUrl %>">
+                    
+                    <!-- User Details -->
+                    <input type="hidden" name="userName" value="<%= userName %>">
+                    <input type="hidden" name="userEmail" value="<%= userEmail %>">
+
+                    <button type="submit">Save Charity</button>
+                  </form>
+
+                  <% if (charity.websiteUrl && charity.websiteUrl !== '#') { %>
+                    <a href="<%= charity.websiteUrl.startsWith('http') ? charity.websiteUrl : 'https://' + charity.websiteUrl %>" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       class="website-link">
+                      Visit Website
+                    </a>
+                  <% } %>
+                </div>
+              </li>
+            <% }) %>
+          </ul>
+        </section>
+      <% } else if (!error) { %>
+        <p class="no-results">Use the search form above to find charities.</p>
+      <% } %>
+    <% } %>
+  </main>
+
+  <footer>
+    <p>&copy; <%= new Date().getFullYear() %> Charity Search App</p>
+  </footer>
+  <script src="/js/session-handler.js"></script>
+</body>
+</html>
