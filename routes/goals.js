@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const { MongoClient, ObjectId } = require("mongodb");
 
-// MongoDB Setup
 const mongoUri = `mongodb+srv://${process.env.MONGO_DB_USERNAME}:${process.env.MONGO_DB_PASSWORD}@cluster0.q6ywm.mongodb.net/${process.env.MONGO_DB_NAME}?retryWrites=true&w=majority`;
 const client = new MongoClient(mongoUri);
 const collectionName = process.env.MONGO_COLLECTION || "charities";
@@ -20,7 +19,6 @@ async function getCollection() {
   }
 }
 
-// Save Charity
 router.post("/saveCharity", async (req, res) => {
   const { name, description, websiteUrl, userName, userEmail } = req.body;
 
@@ -49,7 +47,6 @@ router.post("/saveCharity", async (req, res) => {
   }
 });
 
-// Delete Charity
 router.post("/deleteCharity", async (req, res) => {
   const { charityId, userEmail, userName } = req.body;
 
@@ -75,7 +72,6 @@ router.post("/deleteCharity", async (req, res) => {
   }
 });
 
-// Display Saved Charities
 router.get("/", async (req, res) => {
   const { userEmail, userName } = req.query;
 

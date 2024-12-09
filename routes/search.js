@@ -1,14 +1,10 @@
-// routes/search.js
-
 const express = require("express");
 const axios = require("axios");
 const { MongoClient } = require("mongodb");
 const router = express.Router();
 
-// MongoDB Connection URI
 const mongoUri = process.env.MONGO_URI;
 
-// Validate required environment variables
 if (!mongoUri) {
   console.error("MONGO_URI is not defined. Please set the environment variable.");
 }
@@ -92,7 +88,6 @@ router.get("/results", async (req, res) => {
 router.post("/save", async (req, res) => {
   const { name, description, websiteUrl, userName, userEmail } = req.body;
 
-  // Validate input fields
   if (!name || !websiteUrl || !userName || !userEmail) {
     return res.status(400).render("search", {
       charities: [],
@@ -113,7 +108,6 @@ router.post("/save", async (req, res) => {
     const db = client.db(process.env.MONGO_DB_NAME);
     const collection = db.collection(process.env.MONGO_COLLECTION);
 
-    // First, save or update user information
     await collection.updateOne(
       { userEmail }, 
       { 
@@ -126,7 +120,6 @@ router.post("/save", async (req, res) => {
       { upsert: true }
     );
 
-    // Then save the charity
     const charityDocument = {
       name,
       description: description || "No description available",
@@ -206,11 +199,9 @@ router.get("/goals", async (req, res) => {
 
     let savedCharities = [];
     if (userEmail) {
-      // If userEmail is provided, fetch only that user's charities
       savedCharities = await collection.find({ userEmail }).toArray();
       console.log(`Fetched ${savedCharities.length} charities for user: ${userEmail}`);
     } else {
-      // If no userEmail, fetch all charities (you might want to remove this in production)
       savedCharities = await collection.find().toArray();
       console.log("Fetched all charities:", savedCharities.length);
     }

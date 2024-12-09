@@ -1,11 +1,9 @@
-// donationGoals.js
 const express = require('express');
 const router = express.Router();
 const { MongoClient, ObjectId } = require('mongodb');
 
 const mongoUri = process.env.MONGO_URI;
 
-// Set a yearly goal for a charity
 router.post('/set', async (req, res) => {
     const { charityId, yearlyGoal, userEmail } = req.body;
     
@@ -29,7 +27,6 @@ router.post('/set', async (req, res) => {
     }
 });
 
-// Log a donation
 router.post('/donate', async (req, res) => {
     const { charityId, amount, userEmail } = req.body;
     
@@ -40,7 +37,6 @@ router.post('/donate', async (req, res) => {
         const collection = client.db(process.env.MONGO_DB_NAME)
                                 .collection(process.env.MONGO_COLLECTION);
 
-        // Add to total donated amount
         await collection.updateOne(
             { _id: new ObjectId(charityId), userEmail },
             { 

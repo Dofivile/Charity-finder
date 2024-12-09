@@ -78,12 +78,12 @@
                 <p><%= charity.description %></p>
                 <div class="charity-actions">
                   <form action="/search/save" method="post">
-                    <!-- Charity Details -->
+       
                     <input type="hidden" name="name" value="<%= charity.name %>">
                     <input type="hidden" name="description" value="<%= charity.description %>">
                     <input type="hidden" name="websiteUrl" value="<%= charity.websiteUrl %>">
                     
-                    <!-- User Details -->
+
                     <input type="hidden" name="userName" value="<%= userName %>">
                     <input type="hidden" name="userEmail" value="<%= userEmail %>">
 
